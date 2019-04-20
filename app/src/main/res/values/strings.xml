@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Fragment Examples</string>
+    <string name="send_message">Send Message</string>
+    <string name="message_header">Message Header</string>
+    <string name="message_body">Message Body</string>
+</resources>
