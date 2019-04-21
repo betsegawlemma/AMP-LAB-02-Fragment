@@ -1,6 +1,5 @@
 package et.edu.aait.fragmentexamples
 
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -18,16 +17,26 @@ class MainActivity : AppCompatActivity(),
         }
 
         if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            val showMessageIntent = Intent(this, ShowMessageActivity::class.java)
-            showMessageIntent.putExtra("message", message)
-            startActivity(showMessageIntent)
+            val showMessageFragment = ShowMessageFragment.newInstance(message)
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.portrait_frame, showMessageFragment)
+                .commit()
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if(savedInstanceState == null) {
+            if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                val inputMessageFragment = InputMessageFragment()
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.portrait_frame, inputMessageFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
     }
 }
 
